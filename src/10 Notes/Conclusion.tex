@@ -1,0 +1,162 @@
+\subsubsection{博弈论}
+
+\begin{enumerate}
+
+\item 有两堆石子，两人轮流取，每次可以从一堆中取若干颗石子，也可以从两堆中取一样多的石子。负态为 $\{\lfloor k\cdot\frac{1+\sqrt{5}}{2}\rfloor, k+\lfloor k\cdot\frac{1+\sqrt{5}}{2}\rfloor\}(k = 0,1,2,\cdots)$
+
+\item 翻硬币游戏的 $sg$ 值等于所有正面硬币的 $sg$ 值的异或。
+
+\item 对一个 $Nim$ 游戏，如果定义使得所有子游戏的 $sg$ 值为 $0$ 的玩家胜利，先手必胜的条件为：游戏的 $sg$ 值为 $0$ 且所有子游戏 $sg$ 值均不超过 $1$；或者游戏的 $sg$ 值不为 $0$ 且至少一个子游戏 $sg$ 值超过 $1$。
+
+\end{enumerate}
+
+\subsubsection{数学分析}
+
+\begin{enumerate}
+
+\item
+
+$$
+\frac{\pi}{2} = \lim_{n \to +\infty}\frac{[\frac{(2n)!!}{(2n-1)!!}]^{2}}{2n+1}
+$$
+
+\item
+
+$$
+n!\sim\sqrt{2\pi n}(\frac{n}{e})^{n}
+$$
+
+\item $n$维球的体积公式：$\displaystyle{\frac{\pi^{\frac{n}{2}}}{\Gamma(\frac{n}{2}+1)}r^{n}}$
+
+$n$维球的表面积公式：$\displaystyle{\frac{2\pi^{\frac{n}{2}}}{\Gamma(\frac{n}{2})}r^{n-1}=V_{n}'(r)}$
+
+其中伽马函数 $\Gamma(z)=\int_{0}^{\infty}x^{z-1}e^{-x}\mathbb{d}x$ ，满足
+
+ - $\Gamma(1)=1,\Gamma(z+1)=z\Gamma(z)(z>0)$
+ - $\Gamma(1-z)\Gamma(z)=\frac{\pi}{\sin(\pi z)}(z\notin\mathbb{Z})$
+ - $\Gamma(z)\Gamma(z+\frac{1}{2})=2^{1-2z}\sqrt{\pi}\Gamma(2z)$
+ - $\Gamma(\frac{1}{2})=\sqrt{\pi}$
+
+\end{enumerate}
+
+\subsubsection{组合数学}
+
+\begin{enumerate}
+
+\item 设 $p(n)$ 为将 $n$ 写成若干个正整数和的方案数，若 $i$ 为自然数，称 $\frac{3i^{2}-i}{2}$ 和 $\frac{3i^{2}+i}{2}$ 为广义五边形数，并定义 $f(\frac{3i^{2}-i}{2}) = f(\frac{3i^{2}+i}{2}) = i$，则 $p(n) = \sum_{u,1 \le u \le n}(-1)^{f(u) - 1}p(n-u)$，其中 $u$ 为广义五边形数。$\displaystyle{\phi(x)=\prod_{i=1}^{\infty}(1-x^{i})}$ 称为欧拉函数，它是划分数生成函数的逆。$\phi(x) = \sum_{u}(-1)^{f(u)}x^{u}$，其中 $u$ 为广义五边形数。
+
+\item 设 $M_{n}$ 表示在一个圆上的 $n$ 个不同点间，画出彼此不相交的弦的全部方法的总数。$M_{0} = M_{1} = 1, M_{n + 1} = M_{n}+\sum_{i=0}^{n-1}M_{i}M_{n-i-1} = \frac{2n+3}{n+3}M_{n}+\frac{3n}{n+3}M_{n-1}$。它也可以表示数列 $\{a_{i}\}(0 \le i \le n)$ 的数量，满足：$a_{0} = a_{n} = 0, a_{i} \ge 0, |a_{i}-a_{i + 1}| \le 1$。
+
+\item 设 $C_{0}=1,C_{n}=\sum_{i=0}^{n-1}C_{i}C_{n-i-1}$，它满足 $\displaystyle{C_{n} = \frac{C_{2n}^{n}}{n+1}}$。
+
+\item $B_{0} = 1, B_{i}=1-\sum_{j = 0}^{i-1}C_{i}^{j}\frac{B_{j}}{i-j+1}$。伯努利数的指数型母函数是 $\frac{x}{e^{x}-1}$。
+
+\item $\begin{bmatrix}n\\k\end{bmatrix}$ 表示 $n$ 个元素的置换中能被分解为 $k$ 个循环的置换个数，并定义 $s(n,k)=(-1)^{n-k}\begin{bmatrix}n\\k\end{bmatrix}$。$\begin{bmatrix}n+1\\k\end{bmatrix}=n\begin{bmatrix}n\\k\end{bmatrix}+\begin{bmatrix}n\\k-1\end{bmatrix}(k>0)$，$\begin{bmatrix}0\\0\end{bmatrix}=1$，$\begin{bmatrix}n\\0\end{bmatrix}=\begin{bmatrix}0\\n\end{bmatrix}=0(n>0)$。
+该数列满足：
+
+- $(x)^{(n)}=\sum_{k=0}^{n}\begin{bmatrix}n\\k\end{bmatrix}x^{k}$
+- $(x)_{n}=\sum_{k=0}^{n}s(n,k)x^{k}$
+
+\item $\begin{Bmatrix}n\\k\end{Bmatrix}$ 表示有 $n$ 个元素的集合划分为 $k$ 个集合的方案数。$\begin{Bmatrix}n+1\\k\end{Bmatrix}=k\begin{Bmatrix}n\\k\end{Bmatrix}+\begin{Bmatrix}n\\k-1\end{Bmatrix}(k>0)$，$\begin{Bmatrix}0\\0\end{Bmatrix}=1$，$\begin{Bmatrix}n\\0\end{Bmatrix}=\begin{Bmatrix}0\\n\end{Bmatrix}=0(n>0)$。
+该数列满足：
+
+\item 设 $B_{n}$ 表示基数为 $n$ 的集合的划分方法数，则 $B_{n}$ 满足 $B_{n+1}=\sum_{k=0}^{n}{n\choose k}B_{k}$，$B_{n}=\sum_{k=0}^{n}S(n, k)$，其中 $S$ 是第二类斯特林数，对任意质数 $p$ 有 $B_{n+p^{m}}\equiv mB_{n}+B_{n+1}\pmod{p}$，其指数型母函数是 $\sum_{n=0}^{\infty}\frac{B_{n}}{n!}x^{n}=e^{e^{x}-1}$。
+
+- $\begin{Bmatrix}n\\k\end{Bmatrix}=\frac{1}{k!}\sum_{i=0}^{k}(-1)^{i}{k\choose i}(k-i)^{n}$
+
+\item 设 $G$ 是一个有限群，作用于集合 $X$ 上，对 $\forall g\in G$，$X^{g}$ 表示 $X$ 中在 $g$ 作用下的不动元素的集合，$|X/G|$ 表示 $X$ 在 $G$ 作用下的轨道数，则有 $|X/G|=\frac{1}{|G|}\sum_{g\in G}|X^{g}|$。
+
+\item 设 $\bar{G}$ 是 $n$ 个对象的一个置换群，用 $m$ 种颜色涂染这 $n$ 个对象，则不同染色的方案数为 $l=\frac{1}{|\bar{G}|}(m^{c(\bar{a_{1}})}+m^{c(\bar{a_{2}})}+\cdots+m^{c(\bar{a_{g}})})$ ，其中 $c(\bar{a_{i}})$ 表示置换 $\bar{a_{i}}$ 的循环节数。
+
+\item $\sum{n\choose2k}{k\choose m}=\frac{n}{n-m}{n-m\choose n-2m}2^{n-2m-1}$
+
+\end{enumerate}
+
+\subsubsection{数论}
+
+\begin{enumerate}
+
+\item 对 $\forall a, b, n \in N^{+}, b \ge \phi(n)$，有 $a ^ {b} \equiv a ^ {b \% \phi(n) + \phi(n)}\pmod{n}$，注意 $b \ge \phi(n)$ 是必要条件，以及式子中取模后指数必须加上 $\phi(n)$，否则结果可能会出错。
+
+\item
+
+$$
+\prod_{i=1,\gcd(i,m)=1}^{m}i\equiv\begin{cases}
+-1&(m=1,2,4,p^{l},2p^{l},\text{ p oddpri})\\
+1&(\text{otherwise})
+\end{cases}\pmod{m}
+$$
+
+\item 设 $f(x)$ 是一个积性函数，且 $f(p)$ 是一个关于 $p$ 的多项式。要求 $\sum_{i=1}^{n}f(i)$。定义 $g_{k}(x)=\sum_{i=1,i\text{ is prime}\lor\min_{i}> p_{k}}^{x}f(i)$。那么所有质数的 $f(p)$ 之和就是 $g_{m}(n)$，其中 $m$ 是不大于 $\sqrt{n}$ 的最大质数的编号。
+
+$$
+\begin{cases}
+g_{k-1}(x)-f(p_{k})(g_{k-1}(\frac{x}{p_{k}})-g_{k-1}(p_{k}-1))&(x\ge p_{k}^{2})\\
+g_{k-1}(x)&(x<p_{k}^{2})
+\end{cases}
+$$
+
+定义 $h_{k}(x)=\sum_{i=2,\min_{i}>p_{k}}^{x}f(i)$。那么答案即为 $h_{0}(n)+f(1)$。转移时直接暴搜，且不要记忆化：
+
+$$
+h_{k}(x)=g_{m}(x)-\sum_{i=1}^{k-1}f(p_{i})+\sum_{i=k}^{p_{i}^{2}\le x}\sum_{j=1}^{p_{i}^{j+1}\le x}(f(p_{i}^{j})h_{k+1}(\frac{x}{p_{i}^{j}})+f(p_{i}^{j+1}))
+$$
+
+\end{enumerate}
+
+\subsubsection{线性代数}
+
+\begin{enumerate}
+
+\item 矩阵的秩等于它最大的非零子式。对称矩阵的秩等于它最大的对称非零子式（即选取同样的行和列）。
+
+\end{enumerate}
+
+\subsubsection{计算几何}
+
+\begin{enumerate}
+
+\item 设球冠的高为 $h$，半径为 $R$，则表面积为 $2\pi Rh$。
+
+球面三角形的面积为 $(A+B+C-\pi)R^{2}$ 。
+
+球面正弦定理：$\frac{\sin A}{a} = \frac{\sin B}{b} = \frac{\sin C}{c}$
+
+球面余弦定理：$\cos a=\cos b\cos c+\sin b\sin c\cos A$, $\cos A=-\cos B\cos C+\sin B\sin C\cos a$
+
+\item 设有一格点多边形，其面积 $S=a+\frac{b}{2}-1$，其中 $a$ 表示多边形内部的整点数，$b$ 表示多边形边界上的整点数。
+
+\item 将 $y=kx+b$ 反演到 $(-k,b)$，将 $(k,b)$ 反演到 $y=-kx+b$。这样，两点共线反演为两条直线交于一点，该点是原直线反演出的点。
+
+\item 平面图转对偶图时，先将每条边拆成两条有向边。从每条未访问的边开始，例如 $u\to v$，那么应该寻找 $v$ 的出边中顺时针方向离 $v\to u$ 最近的边，它就是该区域 $u\to v$ 逆时针方向的下一条边。无界区域需要用有向面积为负来判断。点定位时，找出该点上方最近的边，如果它上方恰有多条边相交，那么找出斜率最小的边，该边 $x$ 坐标减少方向的有向边所在的区域，即是该点所在的区域。使用扫描线加速。
+
+\end{enumerate}
+
+\subsubsection{其它}
+
+\begin{enumerate}
+
+\item $x_{n+1}=x_{n}-\frac{f(x_{n})}{f'(x_{n})}$
+
+\item 设有一棵无限的满三叉树，根结点表示列向量 $(3,4,5)^{T}$ ，设有三个矩阵 $
+A=\begin{pmatrix}
+1&-2&2\\
+2&-1&2\\
+2&-2&3\\
+\end{pmatrix}
+,
+B=\begin{pmatrix}
+1&2&2\\
+2&1&2\\
+2&2&3\\
+\end{pmatrix}
+,
+C=\begin{pmatrix}
+-1&2&2\\
+-2&1&2\\
+-2&2&3\\
+\end{pmatrix}
+$ 设父结点的向量为 $\alpha$，则它从左到右的三个孩子的向量分别为 $A\alpha, B\alpha, C\alpha$，这棵树不重不漏地枚举完了所有基本毕达哥拉斯三元组（$a^{2}+b^{2}=c^{2}$）。
+
+
+\end{enumerate}
