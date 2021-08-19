@@ -1,6 +1,7 @@
 <TeX>
-可并堆优化的最小树形图，时间复杂度 $\mathcal{O}(m\log n)$。支持输出方案。
+可并堆优化的最小树形图，时间复杂度 $\mathcal{O}(m\log n)$。支持输出方案
 若输入不保证强连通，需要先给所有 $i\to i+1$ 及 $n\to1$ 连上 $+\infty$ 的边，使得图强连通
+支持求出以每个点为根的最小树形图，时间复杂度 $\mathcal{O}(n\log n)$
 </TeX>
 #include <bits/stdc++.h>
 #define ls(u) (ch[(u)][0])
@@ -10,7 +11,7 @@ using pii = std::pair <ll, int>;
 
 namespace LH{
     const static int N = 200010;
-int sz;
+    int sz;
     pii value[N];
     ll w0[N], lazy[N];
     int dis[N];
@@ -101,7 +102,7 @@ namespace MDST{ // Do not forget to make the graph strong-connected!!!
     LH::LefistHeap p[N];
     int u[N], v[N];
     ll w[N];
-    int sz, ecnt;
+    int sz, ecnt, n;
 
     int find(int u){
         return fa[u] == u ? u : (fa[u] = find(fa[u]));
@@ -122,7 +123,7 @@ namespace MDST{ // Do not forget to make the graph strong-connected!!!
         e[uu].emplace_back(ecnt);
     }
 
-    void init(int n){
+    void init(){
         LH::init();
         sz = 0;
         for (int i = 1; i <= n; ++ i){
@@ -135,8 +136,9 @@ namespace MDST{ // Do not forget to make the graph strong-connected!!!
         }
     }
 
-    void contract(int n){
-        init(n);
+    void contract(int nn){
+        n = nn;
+        init();
         int a = 1;
         while (!p[a].empty()){
             int id = p[a].top().second;
@@ -190,7 +192,66 @@ namespace MDST{ // Do not forget to make the graph strong-connected!!!
         }
     }
 
-    void clear(int n){
+    std::vector <int> e1[N];
+    ll c[N];
+    int dfn[N], right[N], dfncnt;
+    ll tot[N], value[N];
+
+    void add(int sit, ll val){
+        for ( ; sit <= sz; sit += sit & -sit){
+            c[sit] += val;
+        }
+    }
+
+    void add(int l, int r, ll val){
+        add(l, val);
+        add(r + 1, -val);
+    }
+
+    ll query(int sit){
+        ll ret = 0;
+        for ( ; sit; sit -= sit & -sit){
+            ret += c[sit];
+        }
+        return ret;
+    }
+
+    void dfs(int u1){
+        for (auto v1 : e1[u1]){
+            dfs(v1);
+        }
+        if (u1 <= n){
+            dfn[u1] = right[u1] = ++ dfncnt;
+        }
+        else{
+            dfn[u1] = dfn[e1[u1].front()];
+            right[u1] = right[e1[u1].back()];
+        }
+        ll sum = 0;
+        for (auto v1 : e1[u1]){
+            sum += value[v1] + w[in[v1]];
+        }
+        for (auto v1 : e1[u1]){
+            add(dfn[v1], right[v1], sum - value[v1] - w[in[v1]]);
+        }
+        value[u1] = query(dfn[v[in[u1]]]);
+    }
+
+    void solve_all(){
+        for (int i = 0; i <= sz; ++ i){
+            e1[i].clear();
+            c[i] = 0;
+        }
+        for (int i = 1; i < sz; ++ i){
+            e1[parent[i]].emplace_back(i);
+        }
+        dfs(sz);
+        for (int i = 1; i <= n; ++ i){
+            tot[i] = query(dfn[i]);
+        }
+    }
+
+    void clear(){
         for (int i = 1; i <= n; ++ i){
             e[i].clear();
         }
