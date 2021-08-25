@@ -19,7 +19,7 @@ struct Treap{
     }
 
     void init(){
-        node_sz = 0;
+        node_sz = root = 0;
     }
 
     int newnode(int x){
