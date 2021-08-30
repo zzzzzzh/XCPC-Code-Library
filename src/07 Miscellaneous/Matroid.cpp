@@ -1,6 +1,6 @@
 <TeX>
 一般拟阵题都不是单纯抄板就可以通过的，甚至check1和check2本身需要融合进代码进行优化等等。所以只好给出一个大致框架。
-暴力做的复杂度是 $\mathcal{O}(r^{2}(n+m))$，其中 $r=\max(r_{1},r_{2})$，即两拟阵基的大小的最大值。
+暴力做的复杂度是 $\mathcal{O}(r^{2}n)$，其中 $r=\max(r_{1},r_{2})$，即两拟阵基的大小的最大值。
 </TeX>
 #include <bits/stdc++.h>
 
@@ -45,7 +45,7 @@ std::vector <int> matroid_intersection(){
             std::vector <int> nset;
             for (int j = 0; j < sz; ++ j){
                 if (i != j){
-                    nset.emplace_back(set[i]);
+                    nset.emplace_back(set[j]);
                 }
             }
             std::vector <int> edge = check1(nset, to_check);
