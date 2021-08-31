@@ -1,7 +1,33 @@
+struct comp{
+    double real, imag;
+
+    comp(double real = 0, double imag = 0):real(real), imag(imag){}
+
+    comp operator +(const comp &c)const{
+        return comp(real + c.real, imag + c.imag);
+    }
+
+    comp operator -(const comp &c)const{
+        return comp(real - c.real, imag - c.imag);
+    }
+
+    comp operator *(const comp &c)const{
+        return comp(real * c.real - imag * c.imag, real * c.imag + imag * c.real);
+    }
+
+    comp operator *(const double &c)const{
+        return comp(real * c, imag * c);
+    }
+
+    comp conj()const{
+        return comp(real, -imag);
+    }
+};
+
 comp w[2][1 << MAX];
 void init(){
-	for (int i = 0; i < 1 << MAX; ++i){
-		double angle = 1.0 * i / (1 << (MAX - 1)) * PI;
+    for (int i = 0; i < 1 << MAX; ++i){
+        double angle = 1.0 * i / (1 << (MAX - 1)) * PI;
 		for (int type = -1; type <= 1; type += 2)
 			w[!~type][i] = comp(cos(angle), type * sin(angle));
 	}
