@@ -14,12 +14,63 @@ struct poly{
 	void setlen(int len) {
 		a.resize(len + 1); this->len = len;
 	}
-	poly operator * (const poly &p) const {
-		if (!~len || !~p.len) return poly(-1);
-		int n = len + p.len, lenret = 1;
-		for ( ; lenret <= n; lenret <<= 1);
-		poly ret(*this, lenret);
-		std::vector<int> aux(lenret);
+    // 相当于乘以 x ^ dis
+    poly operator << (const int &dis) const {
+        poly ret(len + dis);
+        std::copy(a.begin(), a.begin() + len + 1, ret.a.begin() + dis);
+        return ret;
+    }
+    // 相当于除以 x ^ dis
+    poly operator >> (const int &dis) const {
+        if (dis > len) return poly(-1);
+        int retlen = len - dis;
+        poly ret(retlen);
+        std::copy(a.begin(), a.begin() + retlen + 1, ret.a.begin());
+        return ret;
+    }
+    int value(int x) {
+        int now = 1, ret = 0;
+        for (int i = 0; i <= len; ++i) {
+            ret = (ret + 1ll * a[i] * now) % moder;
+            now = 1ll * now * x % moder;
+        }
+        return ret;
+    }
+    poly operator + (const poly &p) const {
+        poly ret(*this, std::max(len, p.len));
+        for (int i = 0; i <= p.len; ++i) {
+            ret.a[i] += p.a[i];
+            ret.a[i] -= ret.a[i] >= moder ? moder : 0;
+        }
+        for ( ; ~ret.len && !ret.a[ret.len]; --ret.len)
+            ;
+        return ret;
+    }
+
+    poly operator - (const poly &p) const {
+        poly ret(*this, std::max(len, p.len));
+        for (int i = 0; i <= p.len; ++i) {
+            ret.a[i] -= p.a[i];
+            ret.a[i] += ret.a[i] < 0 ? moder : 0;
+        }
+        for ( ; ~ret.len && !ret.a[ret.len]; --ret.len)
+            ;
+        return ret;
+    }
+
+    poly operator - () const {
+        poly ret(len);
+        for (int i = 0; i <= len; ++i){
+            ret.a[i] = a[i] ? moder - a[i] : 0;
+        }
+        return ret;
+    }
+    poly operator * (const poly &p) const {
+        if (!~len || !~p.len) return poly(-1);
+        int n = len + p.len, lenret = 1;
+        for ( ; lenret <= n; lenret <<= 1);
+        poly ret(*this, lenret);
+        std::vector<int> aux(lenret);
 		std::copy(p.a.begin(), p.a.begin() + p.len + 1, aux.begin());
 		NTT(ret.a, lenret, 0); NTT(aux, lenret, 0);
 		for (int i = 0; i < lenret; ++i)
