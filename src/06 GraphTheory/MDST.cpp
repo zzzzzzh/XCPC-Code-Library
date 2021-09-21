@@ -77,6 +77,8 @@ namespace LH{
         }
 
         void pop(){
+            // 这里一定不要忘了 push!!!
+            LH::push(root);
             root = merge(ls(root), rs(root));
         }
 
