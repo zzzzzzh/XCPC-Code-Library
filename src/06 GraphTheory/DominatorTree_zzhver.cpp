@@ -2,8 +2,6 @@
 
 const int N = 500010;
 
-int pa[N];
-
 namespace DominatorTree{
     std::vector <int> e[N], _e[N], tmp[N];
     int dfn[N], inv[N], dfncnt;
