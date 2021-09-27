@@ -98,7 +98,7 @@ double isLL(L l1, L l2){
     return (u ^ l2.v) / (l1.v ^ l2.v); // 返回交点在 p1v1 上的位置，可以用来判断射线、线段等
 }
 
-// 返回有向距离，q 在直线逆时针方向为正
+// 返回有向距离，p 在直线逆时针方向为正
 double disLP(L l, P p){
     return l.v ^ (p - l.p) / l.v.abs();
 }
