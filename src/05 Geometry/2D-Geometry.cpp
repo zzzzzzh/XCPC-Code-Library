@@ -80,7 +80,7 @@ public:
     C (P o, double r):o(o), r(r){}
 
     P point(double angle){
-        return P (o + P (std::cos(angle), std::sin(angle)) * r);
+        return P (o + P (std::cos(angle) * r, std::sin(angle)) * r);
     }
 };
 
