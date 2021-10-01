@@ -78,6 +78,26 @@ struct poly{
 		NTT(ret.a, lenret, 1); ret.len = n;
 		return ret;
 	}
+    friend poly operator * (const int &q, const poly &p){return p * q;}
+    poly &operator += (const poly &p){*this = *this + p; return *this;}
+    poly &operator -= (const poly &p){*this = *this - p; return *this;}
+    poly &operator *= (const poly &p){*this = *this * p; return *this;}
+    poly &operator *= (const int &p){*this = *this * p; return *this;}
+    poly der()const{
+        if (!~len) return poly();
+        poly ret(len - 1);
+        for (int i = 0; i < len; ++ i){
+            ret[i] = 1ll * a[i + 1] * (i + 1) % moder;
+        }
+        return ret;
+    }
+    poly integral()const{
+        poly ret(len + 1);
+        for (int i = len + 1; i; -- i){
+            ret[i] = 1ll * a[i - 1] * ::inv[i] % moder;
+        }
+        return ret;
+    }
 	//表示求最高次为n的inv，log和exp同理
 	poly inv(int n) const {
 		assert(~len && a[0]);
