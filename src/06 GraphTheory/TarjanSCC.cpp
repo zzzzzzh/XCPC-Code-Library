@@ -1,3 +1,7 @@
+/*
+ * @param 自己在 vec 中加边
+ * @return scc_cnt 是 SCC 数量，sccno 表示每个点的 SCC 编号（从 1 开始），scc 存储了每个 SCC 的元素
+ */
 namespace SCC {
 	const int max_N = (int) 1e5 + 21;
 
