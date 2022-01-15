@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 
 using ll = long long;
-const ll INF = ll(7.1e13);
+using T = ll; // value type
+const T INF = T(7.1e13);
 const int DIM = 2;
 
 using Node = std::array <int, DIM>;
@@ -12,7 +13,8 @@ struct KD_Tree{
     const static int N = 300010;
 
     Node low[N], high[N];
-    ll seg[N], seg1[N], lazy[N], pre[N]; // seg1: history min
+    // modify it
+    T seg[N], seg1[N], lazy[N], pre[N]; // seg1: history min
     int ch[N][2], sz, root;
     std::vector<Node> vec;
 
@@ -36,6 +38,7 @@ struct KD_Tree{
         pull1(u);
     }
 
+    // modify it
     void pull1(int u){
         seg[u] = std::min(seg[ls(u)], seg[rs(u)]);
         seg1[u] = std::min(seg1[ls(u)], seg1[rs(u)]);
@@ -44,7 +47,8 @@ struct KD_Tree{
     void build(int u, int l, int r, int dep){ // ensure vec assigned and non-empty!
         if (l == r){
             low[u] = high[u] = vec[l];
-            ll calc_length(Node node);
+            // modify it
+            T calc_length(Node node);
             seg[u] = seg1[u] = calc_length(vec[l]);
             return;
         }
@@ -65,6 +69,7 @@ struct KD_Tree{
         build(root, 0, int(vec.size()) - 1, 0);
     }
 
+    // modify it
     void push(int sit){
         if (!lazy[sit] && !pre[sit]){
             return;
@@ -80,7 +85,8 @@ struct KD_Tree{
         lazy[sit] = pre[sit] = 0;
     }
 
-    void add(int sit, Node ql, Node qr, ll value){
+    // modify it
+    void add(int sit, Node ql, Node qr, T value){
         if (!sit) return;
         for (int i = 0; i < DIM; ++ i){
             if (qr[i] < low[sit][i] || ql[i] > high[sit][i]) return;
@@ -100,7 +106,8 @@ struct KD_Tree{
         pre[sit] = std::min(pre[sit], lazy[sit]);
     }
 
-    ll query(int sit, Node ql, Node qr){
+    // modify it
+    T query(int sit, Node ql, Node qr){
         if (!sit) return LLONG_MAX;
         for (int i = 0; i < DIM; ++ i){
             if (qr[i] < low[sit][i] || ql[i] > high[sit][i]) return LLONG_MAX;
@@ -160,13 +167,13 @@ int lca(int u, int v){
     return fafa[u][0];
 }
 
-ll calc_length(Node node){
+T calc_length(Node node){
     int uu = id[node[0]], vv = id[node[1]];
     return (dep[uu] + dep[vv] - 2 * dep[lca(uu, vv)]) * INF;
 }
 
 KD_Tree kd_tree;
-ll cur[N];
+T cur[N];
 
 int main(){
     int n, m;
