@@ -47,7 +47,7 @@ struct KD_Tree{
     void build(int u, int l, int r, int dep){ // ensure vec assigned and non-empty!
         if (l == r){
             low[u] = high[u] = vec[l];
-            // modify it
+            // modify it, if the value could not be calculated by vec, it might be better to have another vec1
             T calc_length(Node node);
             seg[u] = seg1[u] = calc_length(vec[l]);
             return;
